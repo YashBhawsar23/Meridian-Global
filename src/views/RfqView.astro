@@ -1,0 +1,333 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+import { useTranslations, type SupportedLanguage } from '../i18n/utils';
+
+export interface Props {
+  lang: SupportedLanguage;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+const products = await getCollection('products');
+
+// Server-side check for url param if rendered
+const searchParams = Astro.url.searchParams;
+const preselectedSlug = searchParams.get('product') || '';
+---
+
+<BaseLayout
+  title={t.rfq.title}
+  description={t.rfq.subtitle}
+  lang={lang}
+>
+  <!-- Page Header -->
+  <section class="bg-gradient-to-b from-brand-950 to-brand-900 text-white py-14 lg:py-20 border-b border-brand-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="max-w-3xl">
+        <span class="text-xs font-bold uppercase tracking-widest text-amber-400 block mb-2">
+          {t.rfq.badge}
+        </span>
+        <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-white font-['Plus_Jakarta_Sans',sans-serif] mb-4">
+          {t.rfq.title}
+        </h1>
+        <p class="text-base sm:text-lg text-slate-300 leading-relaxed">
+          {t.rfq.subtitle}
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Form Section -->
+  <section class="py-12 lg:py-16 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="bg-white rounded-3xl border border-slate-200 shadow-xl p-6 sm:p-10 lg:p-12 relative">
+      
+      <!-- Submission Success Alert (Hidden initially) -->
+      <div id="rfq-success-alert" class="hidden mb-8 p-6 rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-900 transition-all">
+        <div class="flex items-start">
+          <div class="w-10 h-10 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center shrink-0 mr-4">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path>
+            </svg>
+          </div>
+          <div>
+            <h3 class="text-lg font-bold text-emerald-950 font-['Plus_Jakarta_Sans',sans-serif]">
+              {t.rfq.successTitle}
+            </h3>
+            <p class="text-sm text-emerald-800 mt-1 leading-relaxed">
+              {t.rfq.successDesc}
+            </p>
+            <div class="mt-3 text-xs font-mono font-bold text-emerald-900 bg-white/70 px-3 py-1.5 rounded-lg inline-block border border-emerald-200">
+              Reference ID: <span id="rfq-reference-id">RFQ-2026-0000</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Main RFQ Form -->
+      <form id="rfq-form" class="space-y-8" novalidate>
+        
+        <!-- Step 1: Commodity & Commercial Requirements -->
+        <div>
+          <h2 class="text-lg font-bold text-slate-900 font-['Plus_Jakarta_Sans',sans-serif] pb-3 border-b border-slate-100 flex items-center">
+            <span class="w-7 h-7 rounded-lg bg-brand-100 text-brand-800 text-xs font-black flex items-center justify-center mr-2.5">1</span>
+            {lang === 'es' ? 'Especificaciones del Commodity y Despacho' : 'Commodity & Ocean Freight Specifications'}
+          </h2>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+            <!-- Selected Commodity -->
+            <div class="md:col-span-2">
+              <label for="rfq-commodity" class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-2">
+                {t.rfq.commoditySelect} <span class="text-red-500">*</span>
+              </label>
+              <select
+                id="rfq-commodity"
+                name="commodity"
+                required
+                class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-brand-500 focus:border-brand-500 text-sm bg-slate-50 focus:bg-white transition-colors"
+              >
+                <option value="">-- {t.rfq.commodityPlaceholder} --</option>
+                {products.map((p) => (
+                  <option value={p.slug} selected={p.slug === preselectedSlug}>
+                    {p.data.title} (HS {p.data.hsCode} • {p.data.originCountry})
+                  </option>
+                ))}
+                <option value="custom-commodity">
+                  {lang === 'es' ? 'Otro commodity a granel / Grado industrial personalizado' : 'Other Bulk Commodity / Custom Industrial Grade'}
+                </option>
+              </select>
+            </div>
+
+            <!-- Target Volume -->
+            <div>
+              <label for="rfq-volume" class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-2">
+                {t.rfq.volumeLabel} <span class="text-red-500">*</span>
+              </label>
+              <input
+                type="text"
+                id="rfq-volume"
+                name="volume"
+                required
+                placeholder={t.rfq.volumePlaceholder}
+                class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-brand-500 focus:border-brand-500 text-sm bg-slate-50 focus:bg-white transition-colors"
+              />
+            </div>
+
+            <!-- Destination Port -->
+            <div>
+              <label for="rfq-port" class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-2">
+                {t.rfq.targetPortLabel} <span class="text-red-500">*</span>
+              </label>
+              <input
+                type="text"
+                id="rfq-port"
+                name="dischargePort"
+                required
+                placeholder={t.rfq.targetPortPlaceholder}
+                class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-brand-500 focus:border-brand-500 text-sm bg-slate-50 focus:bg-white transition-colors"
+              />
+            </div>
+
+            <!-- Desired Incoterm -->
+            <div>
+              <label for="rfq-incoterm" class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-2">
+                {t.rfq.incotermsLabel} <span class="text-red-500">*</span>
+              </label>
+              <select
+                id="rfq-incoterm"
+                name="incoterm"
+                required
+                class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-brand-500 focus:border-brand-500 text-sm bg-slate-50 focus:bg-white transition-colors"
+              >
+                <option value="CIF" selected>CIF (Cost, Insurance &amp; Freight) - Recommended</option>
+                <option value="FOB">FOB (Free on Board - Origin Loading Berth)</option>
+                <option value="CFR">CFR (Cost and Freight)</option>
+                <option value="DAP">DAP (Delivered at Place - Buyer Bonded Depot)</option>
+                <option value="EXW">EXW (Ex Works - Processing Facility Gate)</option>
+              </select>
+            </div>
+
+            <!-- Preferred Payment Structure -->
+            <div>
+              <label for="rfq-payment" class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-2">
+                {t.rfq.paymentTermsLabel} <span class="text-red-500">*</span>
+              </label>
+              <select
+                id="rfq-payment"
+                name="paymentTerms"
+                required
+                class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-brand-500 focus:border-brand-500 text-sm bg-slate-50 focus:bg-white transition-colors"
+              >
+                <option value="LC-Sight" selected>100% Irrevocable Confirmed L/C at Sight (Top 50 Bank)</option>
+                <option value="CAD">Cash Against Documents (CAD / Documentary Collection)</option>
+                <option value="TT-Deposit">T/T: 30% Advance Deposit + 70% vs BL &amp; SGS Assay</option>
+                <option value="SBLC">Standby Letter of Credit (SBLC) + Escrow MT103</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 2: Buyer & Corporate Credentials -->
+        <div>
+          <h2 class="text-lg font-bold text-slate-900 font-['Plus_Jakarta_Sans',sans-serif] pb-3 border-b border-slate-100 flex items-center">
+            <span class="w-7 h-7 rounded-lg bg-brand-100 text-brand-800 text-xs font-black flex items-center justify-center mr-2.5">2</span>
+            {lang === 'es' ? 'Datos del Comprador Institucional' : 'Institutional Buyer Verification'}
+          </h2>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+            <!-- Full Name -->
+            <div>
+              <label for="rfq-name" class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-2">
+                {t.rfq.nameLabel} <span class="text-red-500">*</span>
+              </label>
+              <input
+                type="text"
+                id="rfq-name"
+                name="fullName"
+                required
+                placeholder={t.rfq.namePlaceholder}
+                class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-brand-500 focus:border-brand-500 text-sm bg-slate-50 focus:bg-white transition-colors"
+              />
+            </div>
+
+            <!-- Company Name -->
+            <div>
+              <label for="rfq-company" class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-2">
+                {t.rfq.companyLabel} <span class="text-red-500">*</span>
+              </label>
+              <input
+                type="text"
+                id="rfq-company"
+                name="company"
+                required
+                placeholder={t.rfq.companyPlaceholder}
+                class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-brand-500 focus:border-brand-500 text-sm bg-slate-50 focus:bg-white transition-colors"
+              />
+            </div>
+
+            <!-- Email -->
+            <div>
+              <label for="rfq-email" class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-2">
+                {t.rfq.emailLabel} <span class="text-red-500">*</span>
+              </label>
+              <input
+                type="email"
+                id="rfq-email"
+                name="email"
+                required
+                placeholder={t.rfq.emailPlaceholder}
+                class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-brand-500 focus:border-brand-500 text-sm bg-slate-50 focus:bg-white transition-colors"
+              />
+            </div>
+
+            <!-- Phone / WhatsApp -->
+            <div>
+              <label for="rfq-phone" class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-2">
+                {t.rfq.phoneLabel} <span class="text-red-500">*</span>
+              </label>
+              <input
+                type="tel"
+                id="rfq-phone"
+                name="phone"
+                required
+                placeholder={t.rfq.phonePlaceholder}
+                class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-brand-500 focus:border-brand-500 text-sm bg-slate-50 focus:bg-white transition-colors"
+              />
+            </div>
+
+            <!-- Additional Notes -->
+            <div class="md:col-span-2">
+              <label for="rfq-notes" class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-2">
+                {t.rfq.additionalNotesLabel}
+              </label>
+              <textarea
+                id="rfq-notes"
+                name="notes"
+                rows="4"
+                placeholder={t.rfq.additionalNotesPlaceholder}
+                class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-brand-500 focus:border-brand-500 text-sm bg-slate-50 focus:bg-white transition-colors"
+              ></textarea>
+            </div>
+          </div>
+        </div>
+
+        <!-- Submit Button & Compliance Assurance -->
+        <div class="pt-6 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div class="text-xs text-slate-500 flex items-center">
+            <svg class="w-4 h-4 text-emerald-600 mr-2 shrink-0" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"></path>
+            </svg>
+            <span>256-Bit Encrypted B2B Commercial Channel</span>
+          </div>
+
+          <button
+            type="submit"
+            id="rfq-submit-btn"
+            class="w-full sm:w-auto inline-flex items-center justify-center px-8 py-4 rounded-xl text-base font-bold text-slate-950 bg-gradient-to-r from-amber-400 to-amber-300 hover:from-amber-300 hover:to-amber-200 shadow-lg shadow-amber-900/20 transition-all duration-200 hover:-translate-y-0.5 cursor-pointer"
+          >
+            <span id="rfq-btn-text">{t.rfq.submitBtn}</span>
+            <svg id="rfq-btn-icon" class="w-5 h-5 ml-2 text-slate-950" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+            </svg>
+          </button>
+        </div>
+
+      </form>
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+  function setupRfqForm() {
+    const form = document.getElementById('rfq-form') as HTMLFormElement | null;
+    const alertBox = document.getElementById('rfq-success-alert');
+    const refIdSpan = document.getElementById('rfq-reference-id');
+    const submitBtn = document.getElementById('rfq-submit-btn') as HTMLButtonElement | null;
+    const btnText = document.getElementById('rfq-btn-text');
+    const commoditySelect = document.getElementById('rfq-commodity') as HTMLSelectElement | null;
+
+    // Check client-side URL parameters in case page was navigated via SPA / client route
+    const currentParams = new URLSearchParams(window.location.search);
+    const paramProduct = currentParams.get('product');
+    if (paramProduct && commoditySelect) {
+      for (let i = 0; i < commoditySelect.options.length; i++) {
+        if (commoditySelect.options[i].value === paramProduct) {
+          commoditySelect.selectedIndex = i;
+          break;
+        }
+      }
+    }
+
+    if (!form || !submitBtn || !btnText) return;
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      // Check form validity
+      if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
+      }
+
+      // Simulate sending RFQ
+      submitBtn.disabled = true;
+      btnText.textContent = 'Transmitting RFQ...';
+
+      setTimeout(() => {
+        const randomRef = 'RFQ-' + Math.floor(100000 + Math.random() * 900000);
+        if (refIdSpan) refIdSpan.textContent = randomRef;
+        if (alertBox) alertBox.classList.remove('hidden');
+
+        submitBtn.disabled = false;
+        btnText.textContent = 'RFQ Transmitted';
+
+        // Scroll smoothly to success alert
+        alertBox?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }, 700);
+    });
+  }
+
+  setupRfqForm();
+  document.addEventListener('astro:after-swap', setupRfqForm);
+</script>

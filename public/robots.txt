@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://example-trade.com/sitemap-index.xml

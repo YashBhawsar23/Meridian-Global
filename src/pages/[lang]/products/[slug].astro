@@ -1,0 +1,26 @@
+---
+import { getCollection, type CollectionEntry } from 'astro:content';
+import ProductDetailView from '../../../views/ProductDetailView.astro';
+import type { SupportedLanguage } from '../../../i18n/translations';
+
+export async function getStaticPaths() {
+  const products = await getCollection('products');
+  const locales: SupportedLanguage[] = ['en', 'es'];
+
+  return locales.flatMap((lang) =>
+    products.map((product) => ({
+      params: { lang, slug: product.slug },
+      props: { product, lang },
+    }))
+  );
+}
+
+export interface Props {
+  product: CollectionEntry<'products'>;
+  lang: SupportedLanguage;
+}
+
+const { product, lang } = Astro.props;
+---
+
+<ProductDetailView product={product} lang={lang} />

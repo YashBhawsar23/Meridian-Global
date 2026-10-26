@@ -1,0 +1,82 @@
+---
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { getHreflangUrls, getLangFromUrl, type SupportedLanguage } from '../i18n/utils';
+
+export interface Props {
+  title: string;
+  description: string;
+  lang?: SupportedLanguage;
+  image?: string;
+  ogType?: string;
+  schema?: Record<string, any>;
+}
+
+const siteUrl = Astro.site ? Astro.site.toString() : 'https://example-trade.com';
+const currentLang = Astro.props.lang || getLangFromUrl(Astro.url);
+const {
+  title,
+  description,
+  image = 'https://images.unsplash.com/photo-1578575437130-527eed3abbec?auto=format&fit=crop&w=1200&q=80',
+  ogType = 'website',
+  schema,
+} = Astro.props;
+
+const hreflangs = getHreflangUrls(siteUrl, Astro.url.pathname);
+const canonicalUrl = hreflangs.canonical(currentLang);
+const formattedTitle = `${title} | Meridian Global Trade`;
+---
+
+<!doctype html>
+<html lang={currentLang} class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+
+    <!-- Primary Meta Tags -->
+    <title>{formattedTitle}</title>
+    <meta name="title" content={formattedTitle} />
+    <meta name="description" content={description} />
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+
+    <!-- Canonical & Multilingual SEO Alternates -->
+    <link rel="canonical" href={canonicalUrl} />
+    <link rel="alternate" hreflang="en" href={hreflangs.en} />
+    <link rel="alternate" hreflang="es" href={hreflangs.es} />
+    <link rel="alternate" hreflang="x-default" href={hreflangs.xDefault} />
+
+    <!-- Open Graph / Facebook / LinkedIn -->
+    <meta property="og:type" content={ogType} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:title" content={formattedTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={image} />
+    <meta property="og:site_name" content="Meridian Global Trade Corporation" />
+    <meta property="og:locale" content={currentLang === 'es' ? 'es_ES' : 'en_US'} />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content={canonicalUrl} />
+    <meta property="twitter:title" content={formattedTitle} />
+    <meta property="twitter:description" content={description} />
+    <meta property="twitter:image" content={image} />
+
+    <!-- Preconnect for fonts and imagery -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet" />
+
+    {schema && (
+      <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+    )}
+  </head>
+  <body class="bg-slate-50 text-slate-800 antialiased min-h-screen flex flex-col overflow-x-hidden selection:bg-brand-500 selection:text-white">
+    <Header currentLang={currentLang} />
+    <main class="flex-grow">
+      <slot />
+    </main>
+    <Footer currentLang={currentLang} />
+  </body>
+</html>

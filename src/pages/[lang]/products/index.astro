@@ -1,0 +1,15 @@
+---
+import ProductsView from '../../../views/ProductsView.astro';
+import type { SupportedLanguage } from '../../../i18n/translations';
+
+export function getStaticPaths() {
+  return [
+    { params: { lang: 'en' } },
+    { params: { lang: 'es' } },
+  ];
+}
+
+const { lang } = Astro.params as { lang: SupportedLanguage };
+---
+
+<ProductsView lang={lang} />

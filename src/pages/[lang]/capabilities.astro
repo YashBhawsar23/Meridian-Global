@@ -1,0 +1,15 @@
+---
+import CapabilitiesView from '../../views/CapabilitiesView.astro';
+import type { SupportedLanguage } from '../../i18n/translations';
+
+export function getStaticPaths() {
+  return [
+    { params: { lang: 'en' } },
+    { params: { lang: 'es' } },
+  ];
+}
+
+const { lang } = Astro.params as { lang: SupportedLanguage };
+---
+
+<CapabilitiesView lang={lang} />

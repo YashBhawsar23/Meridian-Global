@@ -1,0 +1,231 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { useTranslations, getLocalizedPath, type SupportedLanguage } from '../i18n/utils';
+
+export interface Props {
+  lang: SupportedLanguage;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+const primaryPorts = [
+  {
+    region: 'South America (Atlantic & Pacific)',
+    ports: [
+      { name: 'Port of Santos', locode: 'BRSSZ', country: 'Brazil', specialization: 'Bulk Sugar, Soybeans & Containerized Cargo' },
+      { name: 'Port of Paranaguá', locode: 'BRPNG', country: 'Brazil', specialization: 'Agro Commodities & Grain Terminals' },
+      { name: 'Port of Antofagasta', locode: 'CLANF', country: 'Chile', specialization: 'Electrolytic Copper Cathodes & Minerals' },
+      { name: 'Port of Callao', locode: 'PECLL', country: 'Peru', specialization: 'Fishmeal, Spices & Agro Foodstuffs' },
+    ],
+  },
+  {
+    region: 'Central & North America',
+    ports: [
+      { name: 'Puerto Quetzal', locode: 'GTPRQ', country: 'Guatemala', specialization: 'Green Cardamom, Specialty Coffee & Sugar' },
+      { name: 'Santo Tomás de Castilla', locode: 'GTSTC', country: 'Guatemala', specialization: 'Atlantic Express Sailings to US East Coast' },
+      { name: 'Port of Houston', locode: 'USHOU', country: 'United States', specialization: 'Petrochemicals & Bulk Inbound Transit' },
+      { name: 'Port of Manzanillo', locode: 'MXZLO', country: 'Mexico', specialization: 'Pacific Multimodal Hub & Asian Linears' },
+    ],
+  },
+  {
+    region: 'Europe & Mediterranean',
+    ports: [
+      { name: 'Port of Rotterdam', locode: 'NLRTM', country: 'Netherlands', specialization: 'Main European Gateway & Gateway Hub' },
+      { name: 'Port of Antwerp-Bruges', locode: 'BEANR', country: 'Belgium', specialization: 'Breakbulk & Cold Storage Consolidation' },
+      { name: 'Port of Hamburg', locode: 'DEHAM', country: 'Germany', specialization: 'Central European Feeders & Rail Freight' },
+      { name: 'Port of Barcelona', locode: 'ESBCN', country: 'Spain', specialization: 'Mediterranean Inbound & Iberian Logistics' },
+    ],
+  },
+  {
+    region: 'Middle East & Asia Pacific',
+    ports: [
+      { name: 'Port of Jebel Ali', locode: 'AEJEA', country: 'United Arab Emirates', specialization: 'Middle East & GCC Transshipment Hub' },
+      { name: 'Port of Singapore', locode: 'SGSIN', country: 'Singapore', specialization: 'Southeast Asian Deep-Sea Hub' },
+      { name: 'Mundra Port', locode: 'INMUN', country: 'India', specialization: 'Spices, Agricultural Commodities & Steel' },
+      { name: 'Shanghai Port', locode: 'CNSHA', country: 'China', specialization: 'Global High-Density Container Distribution' },
+    ],
+  },
+];
+
+const oceanCarriers = [
+  { name: 'A.P. Møller – Maersk', code: 'MAEU', service: 'Direct weekly sailings across Latin America - Europe routes' },
+  { name: 'Mediterranean Shipping Company (MSC)', code: 'MSCU', service: 'Global container coverage & heavy-lift cargo allocation' },
+  { name: 'CMA CGM Group', code: 'CMDU', service: 'Reefer and controlled-atmosphere container specialists' },
+  { name: 'Hapag-Lloyd', code: 'HLCU', service: 'Specialized Atlantic & Gulf express trade lanes' },
+  { name: 'Ocean Network Express (ONE)', code: 'ONEY', service: 'Asia-Pacific and Indian subcontinent deep-draft links' },
+  { name: 'Evergreen Marine', code: 'EGLV', service: 'High-capacity trans-Pacific container networks' },
+];
+---
+
+<BaseLayout
+  title={t.capabilities.title}
+  description={t.capabilities.subtitle}
+  lang={lang}
+>
+  <!-- Hero Section -->
+  <section class="bg-gradient-to-b from-brand-950 via-brand-900 to-slate-900 text-white py-16 lg:py-24">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="max-w-3xl">
+        <span class="text-xs font-bold uppercase tracking-widest text-amber-400 block mb-3">
+          {t.capabilities.badge}
+        </span>
+        <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-white font-['Plus_Jakarta_Sans',sans-serif] mb-6">
+          {t.capabilities.title}
+        </h1>
+        <p class="text-base sm:text-lg text-slate-300 leading-relaxed">
+          {t.capabilities.subtitle}
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Container Freight Options (FCL / LCL / Bulk) -->
+  <section class="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center max-w-3xl mx-auto mb-14">
+      <span class="text-xs font-bold uppercase tracking-wider text-brand-600 block mb-2">
+        Maritime Carriage
+      </span>
+      <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 font-['Plus_Jakarta_Sans',sans-serif]">
+        {t.capabilities.freightTitle}
+      </h2>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      
+      <!-- FCL -->
+      <div class="bg-white rounded-2xl border border-slate-200 p-8 shadow-xs hover:shadow-lg transition-all flex flex-col justify-between">
+        <div>
+          <div class="w-12 h-12 rounded-xl bg-brand-50 text-brand-700 flex items-center justify-center mb-6">
+            <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path>
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold text-slate-900 font-['Plus_Jakarta_Sans',sans-serif] mb-3">
+            {t.capabilities.fclTitle}
+          </h3>
+          <p class="text-xs sm:text-sm text-slate-600 leading-relaxed mb-6">
+            {t.capabilities.fclDesc}
+          </p>
+        </div>
+        <div class="pt-4 border-t border-slate-100 text-xs font-semibold text-brand-700">
+          Capacity: 11 - 28 Metric Tons / Box
+        </div>
+      </div>
+
+      <!-- LCL -->
+      <div class="bg-white rounded-2xl border border-slate-200 p-8 shadow-xs hover:shadow-lg transition-all flex flex-col justify-between">
+        <div>
+          <div class="w-12 h-12 rounded-xl bg-brand-50 text-brand-700 flex items-center justify-center mb-6">
+            <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold text-slate-900 font-['Plus_Jakarta_Sans',sans-serif] mb-3">
+            {t.capabilities.lclTitle}
+          </h3>
+          <p class="text-xs sm:text-sm text-slate-600 leading-relaxed mb-6">
+            {t.capabilities.lclDesc}
+          </p>
+        </div>
+        <div class="pt-4 border-t border-slate-100 text-xs font-semibold text-brand-700">
+          Capacity: 500 kg to 5 Metric Tons
+        </div>
+      </div>
+
+      <!-- Bulk Ocean Charters -->
+      <div class="bg-white rounded-2xl border border-slate-200 p-8 shadow-xs hover:shadow-lg transition-all flex flex-col justify-between">
+        <div>
+          <div class="w-12 h-12 rounded-xl bg-brand-50 text-brand-700 flex items-center justify-center mb-6">
+            <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold text-slate-900 font-['Plus_Jakarta_Sans',sans-serif] mb-3">
+            {t.capabilities.bulkTitle}
+          </h3>
+          <p class="text-xs sm:text-sm text-slate-600 leading-relaxed mb-6">
+            {t.capabilities.bulkDesc}
+          </p>
+        </div>
+        <div class="pt-4 border-t border-slate-100 text-xs font-semibold text-brand-700">
+          Capacity: 10,000 to 50,000 MT Vessel Lots
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Global Ports Matrix -->
+  <section class="bg-slate-100/70 border-y border-slate-200 py-16 lg:py-24">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="max-w-3xl mb-12">
+        <span class="text-xs font-bold uppercase tracking-wider text-brand-600 block mb-2">
+          Global Marine Terminals
+        </span>
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 font-['Plus_Jakarta_Sans',sans-serif]">
+          {t.capabilities.portsTitle}
+        </h2>
+        <p class="text-sm text-slate-600 mt-2">
+          Direct ocean line service contracts and established stevedore relationships across the world's most critical trading nodes.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        {primaryPorts.map((group) => (
+          <div class="bg-white rounded-2xl border border-slate-200 p-6 shadow-xs">
+            <h3 class="text-base font-bold text-brand-800 font-['Plus_Jakarta_Sans',sans-serif] mb-4 pb-2 border-b border-slate-100">
+              {group.region}
+            </h3>
+            <div class="space-y-4">
+              {group.ports.map((port) => (
+                <div class="flex flex-col sm:flex-row sm:items-baseline justify-between p-3 rounded-xl bg-slate-50 border border-slate-200/70 text-xs">
+                  <div>
+                    <span class="font-bold text-slate-900 text-sm block">{port.name}</span>
+                    <span class="text-slate-500">{port.specialization}</span>
+                  </div>
+                  <div class="mt-2 sm:mt-0 text-left sm:text-right shrink-0">
+                    <span class="font-mono font-bold text-brand-700 bg-brand-50 px-2 py-0.5 rounded border border-brand-200">
+                      {port.locode}
+                    </span>
+                    <span class="block text-[11px] text-slate-400 mt-0.5">{port.country}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Contracted Shipping Lines -->
+  <section class="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="max-w-3xl mb-12">
+      <span class="text-xs font-bold uppercase tracking-wider text-brand-600 block mb-2">
+        Carrier Alliances
+      </span>
+      <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 font-['Plus_Jakarta_Sans',sans-serif]">
+        {t.capabilities.linesTitle}
+      </h2>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      {oceanCarriers.map((carrier) => (
+        <div class="bg-white rounded-2xl border border-slate-200 p-6 shadow-xs hover:border-brand-400 transition-colors">
+          <div class="flex items-center justify-between mb-2">
+            <h3 class="text-base font-bold text-slate-900 font-['Plus_Jakarta_Sans',sans-serif]">
+              {carrier.name}
+            </h3>
+            <span class="font-mono text-xs font-bold text-slate-500 bg-slate-100 px-2 py-0.5 rounded">
+              {carrier.code}
+            </span>
+          </div>
+          <p class="text-xs text-slate-600 leading-relaxed mt-2">
+            {carrier.service}
+          </p>
+        </div>
+      ))}
+    </div>
+  </section>
+</BaseLayout>

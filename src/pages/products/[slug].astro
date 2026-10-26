@@ -1,0 +1,20 @@
+---
+import { getCollection, type CollectionEntry } from 'astro:content';
+import ProductDetailView from '../../views/ProductDetailView.astro';
+
+export async function getStaticPaths() {
+  const products = await getCollection('products');
+  return products.map((product) => ({
+    params: { slug: product.slug },
+    props: { product },
+  }));
+}
+
+export interface Props {
+  product: CollectionEntry<'products'>;
+}
+
+const { product } = Astro.props;
+---
+
+<ProductDetailView product={product} lang="en" />
