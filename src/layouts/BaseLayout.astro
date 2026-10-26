@@ -24,7 +24,7 @@ const {
 
 const hreflangs = getHreflangUrls(siteUrl, Astro.url.pathname);
 const canonicalUrl = hreflangs.canonical(currentLang);
-const formattedTitle = `${title} | Meridian Global Trade`;
+const formattedTitle = `${title} | Horizon Exim`;
 ---
 
 <!doctype html>
@@ -53,7 +53,7 @@ const formattedTitle = `${title} | Meridian Global Trade`;
     <meta property="og:title" content={formattedTitle} />
     <meta property="og:description" content={description} />
     <meta property="og:image" content={image} />
-    <meta property="og:site_name" content="Meridian Global Trade Corporation" />
+    <meta property="og:site_name" content="Horizon Exim | Fresh Agro & Bulk Commodities Exporter" />
     <meta property="og:locale" content={currentLang === 'es' ? 'es_ES' : 'en_US'} />
 
     <!-- Twitter -->

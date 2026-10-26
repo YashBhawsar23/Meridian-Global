@@ -21,17 +21,17 @@ const categories = ['all', ...new Set(products.map((p) => p.data.category || 'Ge
   description={t.products.subtitle}
   lang={lang}
 >
-  <!-- Page Header -->
-  <section class="bg-gradient-to-b from-brand-950 to-brand-900 text-white py-14 lg:py-20 border-b border-brand-800">
+  <!-- Page Header (Horizon Exim Style) -->
+  <section class="bg-gradient-to-br from-brand-600 via-brand-700 to-brand-950 text-white py-14 lg:py-20 border-b border-brand-800">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="max-w-3xl">
-        <span class="text-xs font-bold uppercase tracking-widest text-amber-400 block mb-2">
+        <span class="text-xs font-bold uppercase tracking-widest text-amber-300 block mb-2">
           {t.products.badge}
         </span>
-        <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-white font-['Plus_Jakarta_Sans',sans-serif] mb-4">
+        <h1 class="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-white font-['Plus_Jakarta_Sans',sans-serif] mb-4">
           {t.products.title}
         </h1>
-        <p class="text-base sm:text-lg text-slate-300 leading-relaxed">
+        <p class="text-base sm:text-lg text-slate-200 leading-relaxed">
           {t.products.subtitle}
         </p>
       </div>
@@ -64,7 +64,7 @@ const categories = ['all', ...new Set(products.map((p) => p.data.category || 'Ge
           <button
             type="button"
             data-filter="all"
-            class="filter-pill px-4 py-2 rounded-xl text-xs font-bold transition-all bg-brand-700 text-white shadow-xs whitespace-nowrap active"
+            class="filter-pill px-4 py-2 rounded-xl text-xs font-bold transition-all bg-brand-600 text-white shadow-xs whitespace-nowrap active"
           >
             {t.products.filterAll}
           </button>
@@ -93,22 +93,22 @@ const categories = ['all', ...new Set(products.map((p) => p.data.category || 'Ge
 
         return (
           <article
-            class="product-card bg-white rounded-2xl border border-slate-200 shadow-xs hover:shadow-xl transition-all duration-300 flex flex-col overflow-hidden group"
+            class="product-card bg-white rounded-3xl border border-slate-200 shadow-xs hover:shadow-xl transition-all duration-300 flex flex-col overflow-hidden group"
             data-category={product.data.category || 'General Commodity'}
             data-search={searchCorpus}
           >
             <!-- Card Image -->
-            <div class="relative h-60 overflow-hidden bg-slate-100">
+            <div class="relative h-64 overflow-hidden bg-slate-900">
               <img
                 src={product.data.featuredImage}
                 alt={product.data.title}
-                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-95"
                 loading="lazy"
               />
-              <div class="absolute top-3 left-3 bg-slate-950/85 backdrop-blur-xs text-white text-xs font-semibold px-2.5 py-1 rounded-md">
+              <div class="absolute top-4 left-4 bg-slate-950/85 backdrop-blur-xs text-white text-xs font-bold px-3 py-1 rounded-lg">
                 HS {product.data.hsCode}
               </div>
-              <div class="absolute top-3 right-3 bg-brand-600 text-white text-xs font-bold px-2.5 py-1 rounded-md shadow-xs">
+              <div class="absolute top-4 right-4 bg-brand-600 text-white text-xs font-bold px-3 py-1 rounded-lg shadow-sm">
                 {product.data.originCountry}
               </div>
             </div>
@@ -121,11 +121,11 @@ const categories = ['all', ...new Set(products.map((p) => p.data.category || 'Ge
                     {product.data.category || 'Commodity'}
                   </span>
                   <span class="text-[11px] font-semibold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">
-                    SGS Inspected
+                    Verified Exporter
                   </span>
                 </div>
 
-                <h2 class="text-xl font-bold text-slate-900 font-['Plus_Jakarta_Sans',sans-serif] group-hover:text-brand-700 transition-colors">
+                <h2 class="text-xl font-bold text-slate-900 font-['Plus_Jakarta_Sans',sans-serif] group-hover:text-brand-600 transition-colors">
                   <a href={productUrl}>{product.data.title}</a>
                 </h2>
 
@@ -134,10 +134,10 @@ const categories = ['all', ...new Set(products.map((p) => p.data.category || 'Ge
                 </p>
 
                 <!-- Spec List -->
-                <div class="mt-4 pt-4 border-t border-slate-100 space-y-2 text-xs">
+                <div class="mt-4 pt-4 border-t border-slate-100 space-y-1.5 text-xs">
                   <div class="flex justify-between items-baseline">
                     <span class="text-slate-400 font-medium">{t.products.gradeLabel}:</span>
-                    <span class="font-semibold text-slate-800 text-right">{product.data.grade}</span>
+                    <span class="font-semibold text-slate-800 text-right line-clamp-1">{product.data.grade}</span>
                   </div>
                   <div class="flex justify-between items-baseline">
                     <span class="text-slate-400 font-medium">{t.products.moqLabel}:</span>
@@ -145,7 +145,7 @@ const categories = ['all', ...new Set(products.map((p) => p.data.category || 'Ge
                   </div>
                   <div class="flex justify-between items-baseline">
                     <span class="text-slate-400 font-medium">{t.products.portsLabel}:</span>
-                    <span class="font-semibold text-slate-800 text-right line-clamp-1">{product.data.loadingPorts.join(', ')}</span>
+                    <span class="font-semibold text-slate-800 text-right line-clamp-1">{product.data.loadingPorts.join(' • ')}</span>
                   </div>
                 </div>
 
@@ -163,18 +163,16 @@ const categories = ['all', ...new Set(products.map((p) => p.data.category || 'Ge
               <div class="mt-6 pt-4 border-t border-slate-100 flex items-center gap-3">
                 <a
                   href={productUrl}
-                  class="flex-1 text-center py-2.5 px-3 rounded-lg text-xs font-bold text-slate-700 bg-slate-100 hover:bg-slate-200 hover:text-slate-900 transition-colors"
+                  class="flex-1 text-center py-2.5 px-3 rounded-xl text-xs font-bold text-slate-700 bg-slate-100 hover:bg-slate-200 transition-colors"
                 >
                   {t.products.viewSpecs}
                 </a>
                 <a
                   href={rfqUrl}
-                  class="flex-1 text-center py-2.5 px-3 rounded-lg text-xs font-bold text-white bg-brand-700 hover:bg-brand-800 shadow-xs transition-colors flex items-center justify-center"
+                  class="flex-1 text-center py-2.5 px-3 rounded-xl text-xs font-bold text-white bg-brand-600 hover:bg-brand-700 shadow-xs transition-colors flex items-center justify-center"
                 >
                   <span>RFQ</span>
-                  <svg class="w-3.5 h-3.5 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
-                  </svg>
+                  <span class="ml-1 text-amber-300">↗</span>
                 </a>
               </div>
             </div>
@@ -184,14 +182,14 @@ const categories = ['all', ...new Set(products.map((p) => p.data.category || 'Ge
     </div>
 
     <!-- No Results State -->
-    <div id="no-results" class="hidden text-center py-16 bg-white rounded-2xl border border-slate-200 p-8 max-w-md mx-auto">
+    <div id="no-results" class="hidden text-center py-16 bg-white rounded-3xl border border-slate-200 p-8 max-w-md mx-auto">
       <div class="w-12 h-12 rounded-full bg-slate-100 text-slate-400 flex items-center justify-center mx-auto mb-4">
         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
         </svg>
       </div>
       <h3 class="text-base font-bold text-slate-800">{t.products.noResults}</h3>
-      <p class="text-xs text-slate-500 mt-1">Try resetting your search query or selecting "All Categories".</p>
+      <p class="text-xs text-slate-500 mt-1">Try searching another commodity or select "All Products".</p>
     </div>
   </section>
 </BaseLayout>
@@ -242,11 +240,11 @@ const categories = ['all', ...new Set(products.map((p) => p.data.category || 'Ge
     filterPills.forEach((pill) => {
       pill.addEventListener('click', () => {
         filterPills.forEach((p) => {
-          p.classList.remove('bg-brand-700', 'text-white', 'shadow-xs', 'active');
+          p.classList.remove('bg-brand-600', 'text-white', 'shadow-xs', 'active');
           p.classList.add('text-slate-600', 'bg-slate-100');
         });
         pill.classList.remove('text-slate-600', 'bg-slate-100');
-        pill.classList.add('bg-brand-700', 'text-white', 'shadow-xs', 'active');
+        pill.classList.add('bg-brand-600', 'text-white', 'shadow-xs', 'active');
 
         currentCategory = pill.getAttribute('data-filter') || 'all';
         filterGrid();

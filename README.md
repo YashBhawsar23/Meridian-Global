@@ -1,27 +1,43 @@
-# Meridian Global Trade — Multilingual B2B Import/Export Website
+# Horizon Exim — Multilingual B2B Fresh Agricultural & Commodity Export Website
 
-A production-ready, SEO-optimized B2B import/export commodity trading web application built with **Astro 5**, **Tailwind CSS**, and **Astro Content Collections**.
+A production-ready, SEO-optimized B2B agricultural and commodity export web application modeled after **Horizon Exim (India)**, built with **Astro 5**, **Tailwind CSS**, and **Astro Content Collections**.
 
 ---
 
 ## 📑 Table of Contents
 1. [Project Overview & Key Architecture](#-project-overview--key-architecture)
-2. [Quickstart & Development Commands](#-quickstart--development-commands)
-3. [How to Edit Pages & Sections](#-how-to-edit-pages--sections)
-4. [How to Add or Edit Products (Commodities)](#-how-to-add-or-edit-products-commodities)
-5. [How to Add a New Language (e.g., French, German, Arabic)](#-how-to-add-a-new-language)
-6. [How to Customize SEO & Meta Tags](#-how-to-customize-seo--meta-tags)
+2. [Commodity Catalog Sourcing Hub](#-commodity-catalog-sourcing-hub)
+3. [Quickstart & Development Commands](#-quickstart--development-commands)
+4. [How to Edit Pages & Sections](#-how-to-edit-pages--sections)
+5. [How to Add or Edit Products (Commodities)](#-how-to-add-or-edit-products-commodities)
+6. [How to Add a New Language](#-how-to-add-a-new-language)
 7. [Directory Structure Reference](#-directory-structure-reference)
 
 ---
 
 ## 🌐 Project Overview & Key Architecture
 
+- **Branding & Visual Aesthetic:** Inspired by Horizon Exim's signature Royal Navy Blue (`#214995`), dark navy backgrounds, warm amber gold accents, and rounded luxury card containers.
 - **Framework:** Astro 5 (Static Site Generation)
-- **Styling:** Tailwind CSS with trade-specific palette (Navy, Maritime Blues, Amber Gold, Emerald)
+- **Styling:** Tailwind CSS with custom Horizon palette
+- **Statutory Accreditations:** APEDA, FSSAI, Spices Board India, ISO 9001:2015, SGS Pre-shipment, and ICC Incoterms 2020
 - **Content Management:** Astro Content Collections with strict Zod validation schema
 - **SEO & Structured Data:** Automated XML sitemaps, canonical tags, alternate `hreflang` tags, OpenGraph cards, and Schema.org `Product` JSON-LD
 - **Multilingual (i18n):** Default English (`/`, no prefix), Spanish (`/es/`), extensible to any number of locales.
+
+---
+
+## 🌾 Commodity Catalog Sourcing Hub
+
+The website features Horizon Exim's core physical commodities:
+- **Nashik Fresh Red Onions** (45–60mm & 55–70mm in red leno mesh bags, HS `0703.10.19`)
+- **1121 Extra Long Grain Basmati Rice** (Steam & Golden Sella, HS `1006.30.20`)
+- **Fresh Alphonso & Kesar Mangoes** (APEDA certified Hot Water & Gamma Irradiated, HS `0804.50.20`)
+- **Premium Green Cardamom** (Fancy Jumbo 8–9mm, HS `0908.31.00`)
+- **Handpicked Fox Nuts / Phool Makhana** (6-Suta Jumbo, HS `1904.10.90`)
+- **Triple Refined Free-Flow Iodized Salt** (NaCl > 99.5%, HS `2501.00.10`)
+- **Refined Cane Sugar ICUMSA 45** (Brazilian Standard, HS `1701.99.10`)
+- **Electrolytic Copper Cathodes Grade A** (Cu 99.99%, HS `7403.11.00`)
 
 ---
 

@@ -5,27 +5,32 @@ export default {
     extend: {
       colors: {
         brand: {
-          50: '#f0f7ff',
-          100: '#e0effe',
-          200: '#bae0fd',
-          300: '#7cc5fb',
-          400: '#36a5f7',
-          500: '#0c87eb',
-          600: '#026bc9',
-          700: '#0355a2',
-          800: '#074885',
-          900: '#0c3d6e',
-          950: '#072648', // Deep Maritime Navy
+          50: '#f0f5ff',
+          100: '#e0ebfe',
+          200: '#c2d8fd',
+          300: '#94bdfb',
+          400: '#5e9bf7',
+          500: '#3477ef',
+          600: '#214995', // Horizon Exim Signature Royal Navy Blue (#214995)
+          700: '#1b3d7d',
+          800: '#163165',
+          900: '#11254e',
+          950: '#0a1631', // Deep Dark Navy
         },
         trade: {
-          gold: '#d97706',
+          gold: '#f59e0b',
+          amber: '#d97706',
           emerald: '#059669',
-          amber: '#f59e0b',
-        }
+          green: '#10b981',
+          crimson: '#dc2626',
+        },
       },
       fontFamily: {
-        sans: ['Inter', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
-      }
+        sans: ['Plus Jakarta Sans', 'Inter', 'system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'sans-serif'],
+      },
+      borderRadius: {
+        '4xl': '2rem',
+      },
     },
   },
   plugins: [],

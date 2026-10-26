@@ -10,54 +10,59 @@ const t = useTranslations(currentLang);
 
 const navLinks = [
   { href: getLocalizedPath('/', currentLang), label: t.nav.home },
+  { href: getLocalizedPath('/about', currentLang), label: t.nav.about },
   { href: getLocalizedPath('/products', currentLang), label: t.nav.products },
   { href: getLocalizedPath('/capabilities', currentLang), label: t.nav.capabilities },
-  { href: getLocalizedPath('/about', currentLang), label: t.nav.about },
   { href: getLocalizedPath('/rfq', currentLang), label: t.nav.rfq },
 ];
 
 const whatsAppMsg = encodeURIComponent(
   currentLang === 'es'
-    ? 'Hola, deseo solicitar cotización formal (RFQ) para commodities de exportación.'
-    : 'Hello, I would like to request an institutional export commodity RFQ.'
+    ? 'Hola Horizon Exim, deseo solicitar cotización formal (RFQ) para productos agrícolas y commodities de la India.'
+    : 'Hello Horizon Exim, I would like to request an institutional export quotation (RFQ) for Indian agricultural commodities.'
 );
-const whatsAppUrl = `https://wa.me/18005489120?text=${whatsAppMsg}`;
+const whatsAppUrl = `https://wa.me/919898789831?text=${whatsAppMsg}`;
 ---
 
-<footer class="bg-slate-900 text-slate-300 pt-16 pb-12 border-t border-slate-800 relative">
-  <!-- Accreditation Badges Bar -->
+<footer class="bg-slate-950 text-slate-300 pt-16 pb-12 border-t border-slate-900 relative">
+  <!-- Accreditations & Statutory Export Bodies Bar (Horizon Exim Style) -->
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-14">
-    <div class="bg-slate-800/80 rounded-2xl p-6 border border-slate-700/60 shadow-inner">
+    <div class="bg-brand-900/40 rounded-3xl p-6 sm:p-8 border border-brand-800/60 shadow-xl backdrop-blur-xs">
       <div class="text-center mb-6">
-        <span class="text-xs font-bold uppercase tracking-widest text-brand-400">
-          International Trade Accreditation &amp; Governance
+        <span class="text-xs font-extrabold uppercase tracking-widest text-amber-400">
+          Statutory Government Trade Registrations &amp; Global Accreditations
         </span>
       </div>
-      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 items-center text-center">
-        <!-- SGS -->
-        <div class="flex flex-col items-center justify-center p-3 rounded-xl bg-slate-900/60 border border-slate-700">
-          <span class="text-lg font-black tracking-wider text-white">SGS</span>
-          <span class="text-[11px] text-slate-400 mt-1 font-medium">Assay &amp; Weight Certified</span>
+      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-4 items-center text-center">
+        <!-- APEDA -->
+        <div class="flex flex-col items-center justify-center p-3 rounded-2xl bg-slate-900/80 border border-brand-800/80 hover:border-amber-400 transition-colors">
+          <span class="text-base sm:text-lg font-black tracking-wider text-amber-300">APEDA</span>
+          <span class="text-[10px] text-slate-400 mt-0.5 font-medium">Govt. of India Recognized</span>
         </div>
-        <!-- Bureau Veritas -->
-        <div class="flex flex-col items-center justify-center p-3 rounded-xl bg-slate-900/60 border border-slate-700">
-          <span class="text-lg font-black tracking-wider text-white">BUREAU VERITAS</span>
-          <span class="text-[11px] text-slate-400 mt-1 font-medium">Marine Pre-Shipment Audit</span>
+        <!-- FSSAI -->
+        <div class="flex flex-col items-center justify-center p-3 rounded-2xl bg-slate-900/80 border border-brand-800/80 hover:border-amber-400 transition-colors">
+          <span class="text-base sm:text-lg font-black tracking-wider text-emerald-400">FSSAI</span>
+          <span class="text-[10px] text-slate-400 mt-0.5 font-medium">Food Safety Certified</span>
         </div>
-        <!-- ISO 22000 & 9001 -->
-        <div class="flex flex-col items-center justify-center p-3 rounded-xl bg-slate-900/60 border border-slate-700">
-          <span class="text-lg font-black tracking-wider text-emerald-400">ISO 9001 / 22000</span>
-          <span class="text-[11px] text-slate-400 mt-1 font-medium">Quality Management System</span>
+        <!-- Spices Board India -->
+        <div class="flex flex-col items-center justify-center p-3 rounded-2xl bg-slate-900/80 border border-brand-800/80 hover:border-amber-400 transition-colors">
+          <span class="text-base sm:text-lg font-black tracking-wider text-amber-400">SPICES BOARD</span>
+          <span class="text-[10px] text-slate-400 mt-0.5 font-medium">Ministry of Commerce</span>
         </div>
-        <!-- HACCP -->
-        <div class="flex flex-col items-center justify-center p-3 rounded-xl bg-slate-900/60 border border-slate-700">
-          <span class="text-lg font-black tracking-wider text-amber-400">HACCP</span>
-          <span class="text-[11px] text-slate-400 mt-1 font-medium">Food Safety Protocols</span>
+        <!-- ISO 9001 / 22000 -->
+        <div class="flex flex-col items-center justify-center p-3 rounded-2xl bg-slate-900/80 border border-brand-800/80 hover:border-amber-400 transition-colors">
+          <span class="text-base sm:text-lg font-black tracking-wider text-white">ISO 9001:2015</span>
+          <span class="text-[10px] text-slate-400 mt-0.5 font-medium">QMS Standards</span>
+        </div>
+        <!-- SGS Inspection -->
+        <div class="flex flex-col items-center justify-center p-3 rounded-2xl bg-slate-900/80 border border-brand-800/80 hover:border-amber-400 transition-colors">
+          <span class="text-base sm:text-lg font-black tracking-wider text-brand-300">SGS</span>
+          <span class="text-[10px] text-slate-400 mt-0.5 font-medium">Assay &amp; Weight Assured</span>
         </div>
         <!-- Incoterms 2020 -->
-        <div class="flex flex-col items-center justify-center p-3 rounded-xl bg-slate-900/60 border border-slate-700 col-span-2 sm:col-span-1">
-          <span class="text-lg font-black tracking-wider text-brand-300">INCOTERMS 2020</span>
-          <span class="text-[11px] text-slate-400 mt-1 font-medium">ICC Standard Contracts</span>
+        <div class="flex flex-col items-center justify-center p-3 rounded-2xl bg-slate-900/80 border border-brand-800/80 hover:border-amber-400 transition-colors col-span-2 sm:col-span-1">
+          <span class="text-base sm:text-lg font-black tracking-wider text-white">INCOTERMS</span>
+          <span class="text-[10px] text-slate-400 mt-0.5 font-medium">ICC 2020 Framework</span>
         </div>
       </div>
     </div>
@@ -67,41 +72,41 @@ const whatsAppUrl = `https://wa.me/18005489120?text=${whatsAppMsg}`;
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
       
-      <!-- Company Bio & Identity -->
+      <!-- Company Bio & Identity (Horizon Exim) -->
       <div class="space-y-4">
         <div class="flex items-center space-x-3">
-          <div class="w-10 h-10 rounded-xl bg-brand-700 text-white flex items-center justify-center shadow-md">
-            <svg class="w-6 h-6 text-brand-200" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <div class="w-10 h-10 rounded-xl bg-brand-600 text-white flex items-center justify-center shadow-md">
+            <svg class="w-6 h-6 text-amber-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
               <circle cx="12" cy="12" r="10"></circle>
               <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"></path>
               <path d="M2 12h20"></path>
             </svg>
           </div>
-          <span class="text-xl font-bold tracking-tight text-white font-['Plus_Jakarta_Sans',sans-serif]">
-            MERIDIAN<span class="text-brand-400">TRADE</span>
+          <span class="text-2xl font-black tracking-tight text-white font-['Plus_Jakarta_Sans',sans-serif]">
+            HORIZON<span class="text-brand-500">EXIM</span>
           </span>
         </div>
-        <p class="text-sm text-slate-400 leading-relaxed">
+        <p class="text-xs sm:text-sm text-slate-400 leading-relaxed">
           {t.footer.aboutText}
         </p>
-        <div class="text-xs text-slate-400 space-y-1 pt-2">
-          <div><strong class="text-slate-300">Registration:</strong> US DOT / FMC FMC-OTI #028941N</div>
-          <div><strong class="text-slate-300">EORI Number:</strong> NL849201948B01</div>
-          <div><strong class="text-slate-300">DUNS Number:</strong> 83-920-4102</div>
+        <div class="text-xs text-slate-400 space-y-1.5 pt-2">
+          <div><strong class="text-slate-300">DGFT / IEC Code:</strong> 0316928410</div>
+          <div><strong class="text-slate-300">APEDA Reg No:</strong> APEDA/REG/2018/HZ0912</div>
+          <div><strong class="text-slate-300">FSSAI License:</strong> 11520021000349</div>
         </div>
       </div>
 
       <!-- Quick Links -->
       <div>
-        <h4 class="text-sm font-bold uppercase tracking-wider text-white mb-4">
+        <h4 class="text-xs font-bold uppercase tracking-wider text-white mb-4">
           {t.footer.quickLinks}
         </h4>
-        <ul class="space-y-2.5 text-sm">
+        <ul class="space-y-2.5 text-xs sm:text-sm">
           {navLinks.map((link) => (
             <li>
               <a
                 href={link.href}
-                class="text-slate-400 hover:text-brand-400 transition-colors flex items-center group"
+                class="text-slate-400 hover:text-amber-400 transition-colors flex items-center group"
               >
                 <span class="text-brand-500 mr-2 group-hover:translate-x-1 transition-transform">›</span>
                 {link.label}
@@ -111,21 +116,21 @@ const whatsAppUrl = `https://wa.me/18005489120?text=${whatsAppMsg}`;
           <li>
             <a
               href={getLocalizedPath('/rfq', currentLang)}
-              class="text-brand-400 hover:text-brand-300 font-semibold transition-colors flex items-center group"
+              class="text-amber-400 hover:text-amber-300 font-bold transition-colors flex items-center group"
             >
-              <span class="text-brand-400 mr-2 group-hover:translate-x-1 transition-transform">›</span>
+              <span class="text-amber-400 mr-2 group-hover:translate-x-1 transition-transform">›</span>
               {t.header.cta}
             </a>
           </li>
         </ul>
       </div>
 
-      <!-- Compliance & Protocols -->
+      <!-- Compliance & Inspection Protocol -->
       <div>
-        <h4 class="text-sm font-bold uppercase tracking-wider text-white mb-4">
+        <h4 class="text-xs font-bold uppercase tracking-wider text-white mb-4">
           {t.footer.tradeCompliance}
         </h4>
-        <ul class="space-y-2.5 text-xs text-slate-400">
+        <ul class="space-y-3 text-xs text-slate-400">
           <li class="flex items-start">
             <svg class="w-4 h-4 text-emerald-400 mr-2 mt-0.5 shrink-0" fill="currentColor" viewBox="0 0 20 20">
               <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
@@ -136,37 +141,37 @@ const whatsAppUrl = `https://wa.me/18005489120?text=${whatsAppMsg}`;
             <svg class="w-4 h-4 text-emerald-400 mr-2 mt-0.5 shrink-0" fill="currentColor" viewBox="0 0 20 20">
               <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
             </svg>
-            <span>Clean on Board Bills of Lading and phytosanitary certificates compliant with USDA / EU EFSA.</span>
+            <span>Clean on Board Bills of Lading, Phytosanitary, and APEDA origin certification.</span>
           </li>
           <li class="flex items-start">
             <svg class="w-4 h-4 text-emerald-400 mr-2 mt-0.5 shrink-0" fill="currentColor" viewBox="0 0 20 20">
               <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
             </svg>
-            <span>Secure financial escrow, standby letters of credit (SBLC), and Documentary Collections (CAD).</span>
+            <span>Continuous temperature recording loggers inside every refrigerated ocean container.</span>
           </li>
         </ul>
       </div>
 
-      <!-- Trade Desk Contacts -->
+      <!-- Direct Contacts & Export Desks (Horizon Exim) -->
       <div>
-        <h4 class="text-sm font-bold uppercase tracking-wider text-white mb-4">
+        <h4 class="text-xs font-bold uppercase tracking-wider text-white mb-4">
           {t.footer.contactInfo}
         </h4>
         <div class="space-y-3 text-xs text-slate-400">
           <p>
-            <strong class="text-slate-200">Global Operations Hub:</strong><br />
-            Harborside Trade Center, Suite 1400<br />
-            Miami, FL 33132, United States
+            <strong class="text-slate-200">Export Headquarters:</strong><br />
+            Horizon Exim House, Port Highway<br />
+            Gandhidham, Gujarat 370201, India
           </p>
           <p>
-            <strong class="text-slate-200">European Regional Desk:</strong><br />
-            Willemskade 22, Port of Rotterdam<br />
-            3016 DL Rotterdam, Netherlands
+            <strong class="text-slate-200">Agricultural Sourcing Hub:</strong><br />
+            Nashik APMC Aggregation Terminal<br />
+            Nashik, Maharashtra 422003, India
           </p>
           <p class="pt-1">
-            <strong class="text-slate-200">Direct Inquiries:</strong><br />
-            <a href="mailto:trade@meridian-trade.com" class="text-brand-400 hover:underline">trade@meridian-trade.com</a><br />
-            <span class="text-slate-300">+1 (800) 548-9120 (Mon-Fri 24h)</span>
+            <strong class="text-slate-200">Direct Contact:</strong><br />
+            <a href="tel:+919898789831" class="text-amber-400 font-bold hover:underline">+91 98987 89831</a><br />
+            <a href="mailto:horizonexim2018@gmail.com" class="text-slate-300 hover:text-white">horizonexim2018@gmail.com</a>
           </p>
         </div>
       </div>
@@ -174,9 +179,9 @@ const whatsAppUrl = `https://wa.me/18005489120?text=${whatsAppMsg}`;
     </div>
 
     <!-- Legal Notice & Copyright -->
-    <div class="border-t border-slate-800 pt-8 mt-8 flex flex-col md:flex-row items-center justify-between text-xs text-slate-500 gap-4">
+    <div class="border-t border-slate-900 pt-8 mt-8 flex flex-col md:flex-row items-center justify-between text-xs text-slate-500 gap-4">
       <p class="text-center md:text-left">
-        &copy; {new Date().getFullYear()} Meridian Global Trade Corporation. {t.footer.copyright}
+        &copy; {new Date().getFullYear()} Horizon Exim. {t.footer.copyright}
       </p>
       <p class="text-center md:text-right max-w-xl text-[11px] text-slate-500">
         {t.footer.disclaimer}
@@ -184,14 +189,14 @@ const whatsAppUrl = `https://wa.me/18005489120?text=${whatsAppMsg}`;
     </div>
   </div>
 
-  <!-- Floating WhatsApp Contact Button -->
+  <!-- Floating WhatsApp Contact Button (Direct to Horizon Exim) -->
   <aside aria-label="WhatsApp live contact" class="fixed bottom-6 right-6 z-40">
     <a
       href={whatsAppUrl}
       target="_blank"
       rel="noopener noreferrer"
-      class="group flex items-center space-x-2 bg-[#25D366] hover:bg-[#20ba59] text-white px-4 py-3 rounded-full shadow-lg shadow-emerald-950/20 hover:shadow-emerald-600/30 transition-all duration-300 hover:scale-105 focus:outline-none focus:ring-4 focus:ring-emerald-300"
-      aria-label="Direct WhatsApp Trade Desk contact"
+      class="group flex items-center space-x-2 bg-[#25D366] hover:bg-[#20ba59] text-white px-4 py-3 rounded-full shadow-2xl shadow-emerald-950/40 hover:shadow-emerald-600/50 transition-all duration-300 hover:scale-105 focus:outline-none focus:ring-4 focus:ring-emerald-300"
+      aria-label="Direct WhatsApp Export Desk"
     >
       <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24">
         <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.599 2.679-.702c.97.527 1.77.814 2.781.815 3.179 0 5.767-2.587 5.768-5.766 0-3.18-2.586-5.768-5.768-5.768zm0 10.364c-.878 0-1.74-.235-2.493-.681l-.179-.106-1.854.486.495-1.808-.117-.186c-.49-.781-.749-1.689-.748-2.618 0-2.535 2.062-4.597 4.598-4.597 2.534 0 4.596 2.062 4.597 4.597 0 2.536-2.062 4.598-4.598 4.598zm2.52-3.447c-.138-.07-.818-.404-.945-.45-.127-.046-.22-.07-.312.07-.093.138-.358.45-.44.542-.08.093-.162.104-.3.035-.138-.07-.584-.215-1.112-.686-.411-.366-.689-.818-.77-957-.08-.138-.009-.213.06-.282.063-.062.138-.162.207-.243.07-.08.092-.138.138-.23.046-.093.023-.173-.012-.243-.035-.07-.312-.751-.428-1.028-.112-.269-.226-.233-.312-.237l-.265-.005c-.093 0-.243.035-.37.173-.127.138-.484.473-.484 1.154 0 .681.496 1.339.565 1.431.07.093.977 1.492 2.366 2.092.331.143.59.228.792.292.333.106.636.091.876.055.267-.04.818-.334.933-.658.115-.323.115-.601.08-.658-.034-.058-.126-.093-.264-.162z"/>
