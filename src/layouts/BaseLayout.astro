@@ -25,6 +25,13 @@ const {
 const hreflangs = getHreflangUrls(siteUrl, Astro.url.pathname);
 const canonicalUrl = hreflangs.canonical(currentLang);
 const formattedTitle = `${title} | Horizon Exim`;
+
+const ogLocales: Record<SupportedLanguage, string> = {
+  en: 'en_US',
+  es: 'es_ES',
+  hi: 'hi_IN',
+  mr: 'mr_IN',
+};
 ---
 
 <!doctype html>
@@ -45,6 +52,8 @@ const formattedTitle = `${title} | Horizon Exim`;
     <link rel="canonical" href={canonicalUrl} />
     <link rel="alternate" hreflang="en" href={hreflangs.en} />
     <link rel="alternate" hreflang="es" href={hreflangs.es} />
+    <link rel="alternate" hreflang="hi" href={hreflangs.hi} />
+    <link rel="alternate" hreflang="mr" href={hreflangs.mr} />
     <link rel="alternate" hreflang="x-default" href={hreflangs.xDefault} />
 
     <!-- Open Graph / Facebook / LinkedIn -->
@@ -54,7 +63,7 @@ const formattedTitle = `${title} | Horizon Exim`;
     <meta property="og:description" content={description} />
     <meta property="og:image" content={image} />
     <meta property="og:site_name" content="Horizon Exim | Fresh Agro & Bulk Commodities Exporter" />
-    <meta property="og:locale" content={currentLang === 'es' ? 'es_ES' : 'en_US'} />
+    <meta property="og:locale" content={ogLocales[currentLang] || 'en_US'} />
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image" />
@@ -66,7 +75,7 @@ const formattedTitle = `${title} | Horizon Exim`;
     <!-- Preconnect for fonts and imagery -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+Devanagari:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet" />
 
     {schema && (
       <script type="application/ld+json" set:html={JSON.stringify(schema)} />

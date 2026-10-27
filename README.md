@@ -23,7 +23,8 @@ A production-ready, SEO-optimized B2B agricultural and commodity export web appl
 - **Statutory Accreditations:** APEDA, FSSAI, Spices Board India, ISO 9001:2015, SGS Pre-shipment, and ICC Incoterms 2020
 - **Content Management:** Astro Content Collections with strict Zod validation schema
 - **SEO & Structured Data:** Automated XML sitemaps, canonical tags, alternate `hreflang` tags, OpenGraph cards, and Schema.org `Product` JSON-LD
-- **Multilingual (i18n):** Default English (`/`, no prefix), Spanish (`/es/`), extensible to any number of locales.
+- **Multilingual (i18n):** Default English (`/`, no prefix), Spanish (`/es/`), Hindi (`/hi/`), and Marathi (`/mr/`), extensible to any number of locales.
+- **Typography:** Inter for Latin scripts and Google `Noto Sans Devanagari` for crisp, native Hindi & Marathi typography.
 
 ---
 
@@ -160,7 +161,7 @@ Notes regarding stowage, container desiccants, and oceanic route transit times.
 
 ## 🌍 How to Add a New Language
 
-The site currently supports **English (`en`)** and **Spanish (`es`)**. Follow these 3 simple steps to add any other language (e.g., **French (`fr`)**, **Portuguese (`pt`)**, or **German (`de`)**):
+The site currently supports **English (`en`)**, **Spanish (`es`)**, **Hindi (`hi`)**, and **Marathi (`mr`)**. Follow these 3 simple steps to add any other language (e.g., **French (`fr`)**, **Portuguese (`pt`)**, or **German (`de`)**):
 
 ### Step 1: Update Astro i18n Configuration
 Open [`astro.config.mjs`](file:///e:/Import%20Export%202/astro.config.mjs) and add the locale code to `locales`:
@@ -171,7 +172,7 @@ export default defineConfig({
   integrations: [tailwind(), sitemap()],
   i18n: {
     defaultLocale: 'en',
-    locales: ['en', 'es', 'fr'], // <-- Add 'fr'
+    locales: ['en', 'es', 'hi', 'mr', 'fr'], // <-- Add 'fr'
     routing: {
       prefixDefaultLocale: false,
     },
@@ -187,28 +188,24 @@ Open [`src/i18n/translations.ts`](file:///e:/Import%20Export%202/src/i18n/transl
    export const languages = {
      en: 'English',
      es: 'Español',
+     hi: 'हिन्दी',
+     mr: 'मराठी',
      fr: 'Français', // <-- Add here
    } as const;
    ```
-2. Add the corresponding dictionary in `translations.fr = { ... }` (copy the `en` or `es` structure and translate the text strings).
+2. Add the corresponding dictionary in `translations.fr = { ... }` (copy any existing language structure and translate the text strings).
 
-### Step 3: Register the Locale in Static Paths
-Open the files inside `src/pages/[lang]/` and add your locale code to `getStaticPaths`:
-- `src/pages/[lang]/index.astro`
-- `src/pages/[lang]/products/index.astro`
-- `src/pages/[lang]/products/[slug].astro`
-- `src/pages/[lang]/about.astro`
-- `src/pages/[lang]/capabilities.astro`
-- `src/pages/[lang]/rfq.astro`
+### Step 3: Register in `src/i18n/utils.ts`
+Add `'fr'` to `supportedLocales` in [`src/i18n/utils.ts`](file:///e:/Import%20Export%202/src/i18n/utils.ts):
 
-Simply update the returned list:
+```typescript
+export const supportedLocales = ['en', 'es', 'hi', 'mr', 'fr'] as const;
+```
+
+All dynamic page routes under `src/pages/[lang]/` automatically consume `supportedLocales` in `getStaticPaths()`:
 ```typescript
 export function getStaticPaths() {
-  return [
-    { params: { lang: 'en' } },
-    { params: { lang: 'es' } },
-    { params: { lang: 'fr' } }, // <-- Add here
-  ];
+  return supportedLocales.map((lang) => ({ params: { lang } }));
 }
 ```
 

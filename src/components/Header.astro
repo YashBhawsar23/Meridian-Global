@@ -18,8 +18,13 @@ const navLinks = [
 ];
 
 const rfqHref = getLocalizedPath('/rfq', currentLang);
-const englishHref = getLocalizedPath(pathname, 'en');
-const spanishHref = getLocalizedPath(pathname, 'es');
+
+const languageOptions: { code: SupportedLanguage; label: string; short: string }[] = [
+  { code: 'en', label: 'English', short: 'EN' },
+  { code: 'es', label: 'Español', short: 'ES' },
+  { code: 'hi', label: 'हिन्दी', short: 'HI' },
+  { code: 'mr', label: 'मराठी', short: 'MR' },
+];
 ---
 
 <header class="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-xs transition-all duration-200">
@@ -77,11 +82,11 @@ const spanishHref = getLocalizedPath(pathname, 'es');
       <!-- Desktop Navigation Menu -->
       <nav class="hidden lg:flex items-center space-x-1">
         {navLinks.map((link) => {
-          const isActive = pathname === link.href || (link.href !== '/' && link.href !== '/es' && pathname.startsWith(link.href));
+          const isActive = pathname === link.href || (link.href !== '/' && link.href !== '/es' && link.href !== '/hi' && link.href !== '/mr' && pathname.startsWith(link.href));
           return (
             <a
               href={link.href}
-              class={`px-4 py-2 rounded-xl text-sm font-semibold transition-colors ${
+              class={`px-3.5 py-2 rounded-xl text-sm font-semibold transition-colors ${
                 isActive
                   ? 'text-brand-600 bg-brand-50 font-bold'
                   : 'text-slate-700 hover:text-brand-600 hover:bg-slate-100/80'
@@ -94,61 +99,50 @@ const spanishHref = getLocalizedPath(pathname, 'es');
       </nav>
 
       <!-- Language Switcher & CTAs (Desktop) -->
-      <div class="hidden lg:flex items-center space-x-4">
-        <!-- Language Switcher Pill -->
+      <div class="hidden lg:flex items-center space-x-3">
+        <!-- Multilingual Switcher Pill (EN, ES, HI, MR) -->
         <div class="flex items-center bg-slate-100 border border-slate-200 p-0.5 rounded-xl text-xs font-semibold">
-          <a
-            href={englishHref}
-            class={`px-3 py-1.5 rounded-lg transition-all ${
-              currentLang === 'en'
-                ? 'bg-white text-brand-900 shadow-xs font-black'
-                : 'text-slate-500 hover:text-slate-900'
-            }`}
-            aria-label="Switch to English"
-          >
-            EN
-          </a>
-          <a
-            href={spanishHref}
-            class={`px-3 py-1.5 rounded-lg transition-all ${
-              currentLang === 'es'
-                ? 'bg-white text-brand-900 shadow-xs font-black'
-                : 'text-slate-500 hover:text-slate-900'
-            }`}
-            aria-label="Cambiar a Español"
-          >
-            ES
-          </a>
+          {languageOptions.map((opt) => (
+            <a
+              href={getLocalizedPath(pathname, opt.code)}
+              class={`px-2.5 py-1.5 rounded-lg transition-all ${
+                currentLang === opt.code
+                  ? 'bg-white text-brand-900 shadow-xs font-black'
+                  : 'text-slate-500 hover:text-slate-900'
+              }`}
+              title={opt.label}
+              aria-label={`Switch to ${opt.label}`}
+            >
+              {opt.short}
+            </a>
+          ))}
         </div>
 
-        <!-- Prominent RFQ CTA Button (Horizon Exim Signature Blue) -->
+        <!-- Prominent RFQ CTA Button -->
         <a
           href={rfqHref}
-          class="inline-flex items-center justify-center px-6 py-2.5 rounded-xl text-sm font-bold text-white bg-brand-600 hover:bg-brand-700 focus:ring-4 focus:ring-brand-200 shadow-md shadow-brand-600/25 transition-all duration-200 hover:-translate-y-0.5"
+          class="inline-flex items-center justify-center px-5 py-2.5 rounded-xl text-sm font-bold text-white bg-brand-600 hover:bg-brand-700 focus:ring-4 focus:ring-brand-200 shadow-md shadow-brand-600/25 transition-all duration-200 hover:-translate-y-0.5"
         >
           <span>{t.header.cta}</span>
-          <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg class="w-4 h-4 ml-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
           </svg>
         </a>
       </div>
 
       <!-- Mobile Menu Button -->
-      <div class="flex lg:hidden items-center space-x-3">
+      <div class="flex lg:hidden items-center space-x-2">
         <!-- Compact Language Switcher on Mobile Header -->
         <div class="flex items-center bg-slate-100 border border-slate-200 p-0.5 rounded-lg text-xs font-semibold">
-          <a
-            href={englishHref}
-            class={`px-2 py-0.5 rounded ${currentLang === 'en' ? 'bg-white text-brand-900 shadow-xs font-bold' : 'text-slate-500'}`}
-          >
-            EN
-          </a>
-          <a
-            href={spanishHref}
-            class={`px-2 py-0.5 rounded ${currentLang === 'es' ? 'bg-white text-brand-900 shadow-xs font-bold' : 'text-slate-500'}`}
-          >
-            ES
-          </a>
+          {languageOptions.map((opt) => (
+            <a
+              href={getLocalizedPath(pathname, opt.code)}
+              class={`px-1.5 py-0.5 rounded ${currentLang === opt.code ? 'bg-white text-brand-900 shadow-xs font-bold' : 'text-slate-500'}`}
+              title={opt.label}
+            >
+              {opt.short}
+            </a>
+          ))}
         </div>
 
         <button
@@ -193,29 +187,21 @@ const spanishHref = getLocalizedPath(pathname, 'es');
       <!-- Language selector inside drawer -->
       <div class="border-t border-slate-100 pt-4 mb-6">
         <label class="block text-xs uppercase tracking-wider font-bold text-slate-400 mb-2">
-          Language / Idioma
+          Language / भाषा / भाषा निवडा
         </label>
         <div class="grid grid-cols-2 gap-2">
-          <a
-            href={englishHref}
-            class={`text-center py-2.5 px-4 rounded-xl font-medium text-sm border ${
-              currentLang === 'en'
-                ? 'border-brand-600 bg-brand-50 text-brand-900 font-bold'
-                : 'border-slate-200 text-slate-700 hover:bg-slate-50'
-            }`}
-          >
-            English (EN)
-          </a>
-          <a
-            href={spanishHref}
-            class={`text-center py-2.5 px-4 rounded-xl font-medium text-sm border ${
-              currentLang === 'es'
-                ? 'border-brand-600 bg-brand-50 text-brand-900 font-bold'
-                : 'border-slate-200 text-slate-700 hover:bg-slate-50'
-            }`}
-          >
-            Español (ES)
-          </a>
+          {languageOptions.map((opt) => (
+            <a
+              href={getLocalizedPath(pathname, opt.code)}
+              class={`text-center py-2.5 px-3 rounded-xl font-medium text-sm border ${
+                currentLang === opt.code
+                  ? 'border-brand-600 bg-brand-50 text-brand-900 font-bold'
+                  : 'border-slate-200 text-slate-700 hover:bg-slate-50'
+              }`}
+            >
+              {opt.label}
+            </a>
+          ))}
         </div>
       </div>
 

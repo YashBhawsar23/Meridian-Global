@@ -1,12 +1,10 @@
 ---
 import CapabilitiesView from '../../views/CapabilitiesView.astro';
+import { supportedLocales } from '../../i18n/utils';
 import type { SupportedLanguage } from '../../i18n/translations';
 
 export function getStaticPaths() {
-  return [
-    { params: { lang: 'en' } },
-    { params: { lang: 'es' } },
-  ];
+  return supportedLocales.map((lang) => ({ params: { lang } }));
 }
 
 const { lang } = Astro.params as { lang: SupportedLanguage };

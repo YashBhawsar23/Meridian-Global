@@ -16,11 +16,16 @@ const navLinks = [
   { href: getLocalizedPath('/rfq', currentLang), label: t.nav.rfq },
 ];
 
-const whatsAppMsg = encodeURIComponent(
-  currentLang === 'es'
-    ? 'Hola Horizon Exim, deseo solicitar cotización formal (RFQ) para productos agrícolas y commodities de la India.'
-    : 'Hello Horizon Exim, I would like to request an institutional export quotation (RFQ) for Indian agricultural commodities.'
-);
+let whatsAppMsgText = 'Hello Horizon Exim, I would like to request an institutional export quotation (RFQ) for Indian agricultural commodities.';
+if (currentLang === 'es') {
+  whatsAppMsgText = 'Hola Horizon Exim, deseo solicitar cotización formal (RFQ) para productos agrícolas y commodities de la India.';
+} else if (currentLang === 'hi') {
+  whatsAppMsgText = 'नमस्ते Horizon Exim, मुझे भारतीय कृषि उत्पादों और अनाज निर्यात के लिए आधिकारिक कोटेशन (RFQ) चाहिए।';
+} else if (currentLang === 'mr') {
+  whatsAppMsgText = 'नमस्कार Horizon Exim, मला भारतीय कृषी उत्पादने आणि शेतमालासाठी अधिकृत कोटेशन (RFQ) हवे आहे.';
+}
+
+const whatsAppMsg = encodeURIComponent(whatsAppMsgText);
 const whatsAppUrl = `https://wa.me/919898789831?text=${whatsAppMsg}`;
 ---
 

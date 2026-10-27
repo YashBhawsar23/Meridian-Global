@@ -1,8 +1,12 @@
-import { translations, defaultLang, type SupportedLanguage } from './translations';
+import { translations, defaultLang, languages, type SupportedLanguage } from './translations';
+
+export const supportedLocales: SupportedLanguage[] = Object.keys(languages) as SupportedLanguage[];
 
 export function getLangFromUrl(url: URL): SupportedLanguage {
   const [, lang] = url.pathname.split('/');
-  if (lang === 'es') return 'es';
+  if (lang && lang in languages) {
+    return lang as SupportedLanguage;
+  }
   return defaultLang;
 }
 
@@ -12,7 +16,7 @@ export function useTranslations(lang: SupportedLanguage) {
 
 export function stripLangFromPath(pathname: string): string {
   const segments = pathname.replace(/^\/+|\/+$/g, '').split('/');
-  if (segments[0] === 'es' || segments[0] === 'en') {
+  if (segments[0] && segments[0] in languages) {
     segments.shift();
   }
   return '/' + segments.filter(Boolean).join('/');
@@ -30,13 +34,19 @@ export function getHreflangUrls(siteUrl: string, pathname: string) {
   const clean = stripLangFromPath(pathname);
   const base = siteUrl.replace(/\/+$/, '');
   
-  const enPath = clean === '/' ? '/' : clean;
-  const esPath = clean === '/' ? '/es' : `/es${clean}`;
+  const urls: Record<SupportedLanguage, string> = {
+    en: clean === '/' ? `${base}/` : `${base}${clean}`,
+    es: clean === '/' ? `${base}/es` : `${base}/es${clean}`,
+    hi: clean === '/' ? `${base}/hi` : `${base}/hi${clean}`,
+    mr: clean === '/' ? `${base}/mr` : `${base}/mr${clean}`,
+  };
 
   return {
-    canonical: (lang: SupportedLanguage) => (lang === 'es' ? `${base}${esPath}` : `${base}${enPath}`),
-    en: `${base}${enPath}`,
-    es: `${base}${esPath}`,
-    xDefault: `${base}${enPath}`,
+    canonical: (lang: SupportedLanguage) => urls[lang] || urls[defaultLang],
+    en: urls.en,
+    es: urls.es,
+    hi: urls.hi,
+    mr: urls.mr,
+    xDefault: urls.en,
   };
 }
